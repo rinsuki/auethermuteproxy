@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import Koa from "koa"
 import Router from "@koa/router"
 import io from "socket.io-client"
