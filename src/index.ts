@@ -69,10 +69,16 @@ router.post("/player/:name/:action/:is_dead/:is_disconnected/:color", async ctx 
     ctx.body = "OK"
 })
 
-router.post("/gameover/:reason", async ctx => {
+router.post("/gameover/:reason/:players", async ctx => {
     socket.emit("gameover", JSON.stringify({
         GameOverReason: parseInt(ctx.params.reason, 10),
-        PlayerInfos: [],
+        PlayerInfos: ctx.params.players.split(",").map(a => {
+            const [encodedName, isImpostor] = a.split("_")
+            return {
+                Name: decodeURIComponent(encodedName),
+                isImpostor: isImpostor === "1",
+            }
+        }),
     }))
 })
 
