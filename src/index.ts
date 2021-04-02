@@ -15,7 +15,10 @@ const router = new Router()
 const socket = io(process.argv[2], {
     autoConnect: false,
     transports: ["websocket"],
-})
+    extraHeaders: {
+        "User-Agent": "auethermuteproxy/0.0.0",
+    }
+} as any)
 
 const sleep = (x: number) => new Promise(resolve => setTimeout(resolve, x))
 
